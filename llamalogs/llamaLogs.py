@@ -11,6 +11,7 @@ from llamalogs.llamaProxy import LlamaProxy
 class LlamaLogs:
     globalAccountKey = ''
     globalGraphName = ''
+    isDisabled = False
     commThread = None
 
     @staticmethod
@@ -21,7 +22,9 @@ class LlamaLogs:
             if ("graphName" in options):
                 LlamaLogs.globalGraphName = str(options["graphName"])
             if ("isDevEnv" in options):
-                LlamaProxy.isDevEnv = options["isDevEnv"]
+                LlamaProxy.isDevEnv = options["isDevEnv"] or False
+            if ("disabled" in options):
+                LlamaLogs.isDisabled = options["disabled"] or False
 
             if LlamaLogs.commThread is None:
                 LlamaLogs.commThread = threading.Thread(target=LogAggregator.start_timer)
@@ -42,6 +45,8 @@ class LlamaLogs:
     @staticmethod
     def point_stat(options = {}):
         try:
+            if LlamaLogs.isDisabled: 
+                return
             options["type"] = "point"
             LlamaLogs.processStat(options)
         except:
@@ -50,6 +55,8 @@ class LlamaLogs:
     @staticmethod
     def avg_stat(options = {}):
         try:
+            if LlamaLogs.isDisabled: 
+                return
             options["type"] = "average"
             LlamaLogs.processStat(options)
         except:
@@ -58,6 +65,8 @@ class LlamaLogs:
     @staticmethod
     def max_stat(options = {}):
         try:
+            if LlamaLogs.isDisabled: 
+                return
             options["type"] = "max"
             LlamaLogs.processStat(options)
         except:
@@ -66,6 +75,8 @@ class LlamaLogs:
     @staticmethod
     def log(options = {}, returnLog = None):
         try:
+            if LlamaLogs.isDisabled: 
+                return
             return LlamaLogs.processLog(options, returnLog)
         except:
             print("LlamaLogs Error: log function")
@@ -74,6 +85,8 @@ class LlamaLogs:
     @staticmethod
     def force_send():
         try:
+            if LlamaLogs.isDisabled: 
+                return
             LogAggregator.send_messages()
         except:
             print("LlamaLogs Error: force_send function")

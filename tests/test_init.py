@@ -1,5 +1,5 @@
-from LlamaLogs.llamaLogs import LlamaLogs
-from LlamaLogs.logAggregator import LogAggregator
+from llamalogs.llamaLogs import LlamaLogs
+from llamalogs.logAggregator import LogAggregator
 
 def test_init():
     LlamaLogs.init({"graphName": "firstG", "accountKey": "keyKey"})
@@ -36,6 +36,23 @@ def test_remove_init():
     log_list, _stat_list = LogAggregator.gather_messages()
     # rejects because graphname / account is empty
     assert len(log_list) == 0
+
+def test_disabled_init():
+    LlamaLogs.init({"disabled": True })
+
+    params = {
+        "sender": "Server", 
+        "receiver": "Database",
+        "accountKey": "acc2",
+        "graphName": "g1"
+    }
+
+    LlamaLogs.log(params)
+    log_list, _stat_list = LogAggregator.gather_messages()
+
+    assert len(log_list) == 0
+    # turning off for other tests
+    LlamaLogs.init({"disabled": False })
 
 def test_stop():
     LlamaLogs.init()

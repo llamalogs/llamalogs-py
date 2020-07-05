@@ -3,3 +3,5 @@ LlamaLogs/__pycache__/**
 **/.pytest_cache/**
 llamalogs.egg-info/
 dist_notes.txt
+MANIFEST
+dist/

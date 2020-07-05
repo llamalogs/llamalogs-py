@@ -1,5 +1,5 @@
-from LlamaLogs.llamaLogs import LlamaLogs
-from LlamaLogs.logAggregator import LogAggregator
+from llamalogs.llamaLogs import LlamaLogs
+from llamalogs.logAggregator import LogAggregator
 
 def test_log_no_message():
     params = {
