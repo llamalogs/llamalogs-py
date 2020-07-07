@@ -3,13 +3,13 @@ from distutils.core import setup
 setup(
   name = 'llamalogs',   
   packages = ['llamalogs'],
-  version = '0.1.1',
+  version = '0.1.2',
   license='MIT',    
   description = 'Client library for Llama Logs; https://llamalogs.com',
   author = 'Llama Logs',
   author_email = 'andrew@llamalogs.com',
   url = 'https://github.com/llamalogs/llamalogs-py',
-  download_url = 'https://github.com/llamalogs/llamalogs-py/archive/0.1.1.tar.gz',
+  download_url = 'https://github.com/llamalogs/llamalogs-py/archive/0.1.2.tar.gz',
   keywords = ['llama', 'logs', 'metrics', 'llamalogs'],   
   install_requires=['requests', 'schedule'],
   classifiers=[

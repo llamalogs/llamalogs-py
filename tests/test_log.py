@@ -48,6 +48,34 @@ def test_log_message():
     assert log["errorCount"] == 0
     assert log["clientTimestamp"] > 0
 
+def test_log_null_message():
+    params = {
+        "sender": "Server", 
+        "receiver": "Database", 
+        "graphName": "secondary-sub-graph", 
+        "accountKey": "testKey",
+        "message": None
+    }
+
+    LlamaLogs.log(params)
+
+    params["isError"] = True
+    LlamaLogs.log(params)
+
+    log_list, _stat_list = LogAggregator.gather_messages()
+    
+    assert len(log_list) == 1
+    log = log_list[0]
+    assert log["account"] == 'testKey'
+    assert log["sender"] == 'Server'
+    assert log["receiver"] == 'Database'
+    assert log["message"] == ''
+    assert log["errorMessage"] == ''
+    assert log["graph"] == 'secondary-sub-graph'
+    assert log["count"] == 2
+    assert log["errorCount"] == 1
+    assert log["clientTimestamp"] > 0
+
 def test_log_error_message():
     params = {
         "sender": "Server", 

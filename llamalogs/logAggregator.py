@@ -68,9 +68,9 @@ class LogAggregator:
 
 			working_ob.total = working_ob.total + 1
 			if (working_ob.message == '' and log.isError == False):
-				working_ob.message = str(log.message)
+				working_ob.message = str(log.message or '')
 			if (working_ob.errorMessage == '' and log.isError == True):
-				working_ob.errorMessage = str(log.message)
+				working_ob.errorMessage = str(log.message or '')
 
 	@staticmethod
 	def add_stat(stat):
