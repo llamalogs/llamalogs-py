@@ -27,7 +27,8 @@ class LogAggregator:
 
 	@staticmethod
 	def send_messages():
-		print("Sent Messages")
+		if (LlamaProxy.isDevEnv):
+			print("Sent Messages")
 		log_list, stat_list = LogAggregator.gather_messages()
 		LlamaProxy.send_messages(log_list, stat_list)
 
@@ -75,6 +76,9 @@ class LogAggregator:
 				working_ob.message = str(log.message or '')
 			if (working_ob.errorMessage == '' and log.isError == True):
 				working_ob.errorMessage = str(log.message or '')
+		if (LlamaProxy.isDevEnv):
+			print("adding log")
+			print(LogAggregator.aggregateLogs)
 
 	@staticmethod
 	def add_stat(stat):
