@@ -26,7 +26,7 @@ class LlamaLogs:
             if ("disabled" in options):
                 LlamaLogs.isDisabled = options["disabled"] or False
 
-            if LlamaLogs.commThread is None:
+            if LlamaLogs.commThread is None and LlamaLogs.isDisabled is False:
                 LlamaLogs.commThread = threading.Thread(target=LogAggregator.start_timer)
                 LlamaLogs.commThread.daemon = True
                 LlamaLogs.commThread.start()

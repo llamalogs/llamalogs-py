@@ -15,6 +15,10 @@ class LogAggregator:
 
 	@staticmethod
 	def start_timer():
+		# sending messages after 5 seconds upon startup, then to a 1 min interval
+		time.sleep(5)
+		LogAggregator.send_messages()
+
 		delay = 59.5
 		schedule.every(delay).seconds.do(LogAggregator.send_messages)
 		while True and len(schedule.jobs) > 0:

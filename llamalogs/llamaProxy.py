@@ -22,6 +22,7 @@ class LlamaProxy:
 			try:
 				first_log = (len(log_list) and log_list[0]) or (len(stat_list) and stat_list[0])
 				account_key = first_log["account"]
-				requests.post(url + 'api/v0/timedata', json = {"account_key": account_key, "time_logs": log_list, "time_stats": stat_list}, timeout=1)
+				# connect and receive timouts
+				requests.post(url + 'api/v0/timedata', json = {"account_key": account_key, "time_logs": log_list, "time_stats": stat_list}, timeout=(2, 5))
 			except:
 				print('LlamaLogs Error; error sending data to llama logs server')	
